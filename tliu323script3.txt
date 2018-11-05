@@ -1,0 +1,54 @@
+--query 1
+SELECT description FROM product;
+--query 2
+SELECT city FROM customer GROUP BY city;
+--query 3
+SELECT * FROM agent ORDER BY city;
+--query 4
+SELECT fName, lName FROM customer WHERE city='Springfield';
+--query 5
+SELECT customer.fName, customer.lName 
+FROM deal, customer, agent 
+WHERE agent.fName='Regis' AND agent.agentID=deal.agentID AND customer.customerID=deal.customerID;
+--query 6
+SELECT description FROM product WHERE description LIKE '%pad%' OR description LIKE '%Pad%';
+--query 7
+SELECT customer.lName, product.description, product.quantity
+FROM customer, product, purchase
+WHERE purchase.customerID = customer.customerID AND purchase.productID=product.productID;
+--query 8
+SELECT SUM(purchase.quantity) AS "Homer's total purchases"
+FROM purchase, customer
+WHERE customer.fName='Homer' AND purchase.customerID=customer.customerID;
+--query 9
+SELECT fName, lName, SUM(purchase.quantity)
+FROM customer, purchase, product
+WHERE purchase.customerID = customer.customerID AND purchase.productID=product.productID
+GROUP BY lName;
+--query 10
+SELECT description, product.quantity
+FROM product, purchase
+WHERE product.productID=purchase.productID
+GROUP BY description;
+--query 11
+SELECT description, product.quantity
+FROM product
+WHERE productID NOT IN (SELECT product.productID FROM product, purchase, customer WHERE customer.fName='Fred' AND customer.lName='Flintstone' AND product.productID=purchase.productID AND customer.customerID=purchase.customerID);
+--query 12
+SELECT agent.fName, agent.lName, customer.fName, customer.lName
+FROM agent, customer, deal
+WHERE deal.agentID=agent.agentID AND deal.customerID=customer.customerID AND agent.city=customer.city;
+--query 13
+SELECT SUM(quantity) AS "Total amount of knee pads sold"
+FROM purchase
+WHERE productID='78';
+--query 14
+SELECT description, COUNT(purchase.productID)
+FROM purchase, product
+WHERE purchase.productID=product.productID
+GROUP BY purchase.productID
+HAVING COUNT(purchase.productID)>3;
+--query 15
+SELECT agent.fName, agent.lName
+FROM agent, deal, customer, purchase
+WHERE productID='78' AND purchase.customerID=customer.customerID AND customer.customerID=deal.customerID AND deal.agentID=agent.agentID;
