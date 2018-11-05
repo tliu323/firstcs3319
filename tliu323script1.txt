@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 CREATE DATABSE tliu323assign2db;
+=======
+SHOW DATABASES;
+DROP DATABASE IF EXISTS tliu323assign2db;
+CREATE DATABASE tliu323assign2db;
+>>>>>>> 9a9f2f9560aa63a231b9084d65aebe89aded2481
 USE tliu323assign2db;
 SHOW TABLES;
 CREATE TABLE product (productID VARCHAR(2), description VARCHAR(20), cost INT, quantity INT, PRIMARY KEY (productID));
