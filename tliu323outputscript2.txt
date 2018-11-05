@@ -1,10 +1,2 @@
 Warning: Using a password on the command line interface can be insecure.
-ERROR 1062 (23000) at line 4: Duplicate entry '66' for key 'PRIMARY'
---------------
-LOAD DATA LOCAL INFILE 'data.txt' INTO TABLE product FIELDS TERMINATED BY ','
---------------
-
---------------
-INSERT INTO product VALUES ("66", "Elbow pads", 14.25, 120)
---------------
-
+ERROR 1049 (42000) at line 1: Unknown database 'tliu323assign2db'
