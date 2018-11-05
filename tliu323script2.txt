@@ -1,3 +1,5 @@
+USE tliu323assign2db;
+
 LOAD DATA LOCAL INFILE 'data.txt' INTO TABLE product FIELDS TERMINATED BY ',';
 INSERT INTO product VALUES ("66", "Elbow pads", 14.25, 120);
 INSERT INTO product VALUES ("16", "Shin guards", 17.5, 100);
