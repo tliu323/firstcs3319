@@ -4,7 +4,7 @@ CREATE DATABASE tliu323assign2db;
 USE tliu323assign2db;
 SHOW TABLES;
 CREATE TABLE product (productID VARCHAR(2), description VARCHAR(20), cost INT, quantity INT, PRIMARY KEY (productID));
-CREATE TABLE agent (agentID VARCHAR(2), fName VARCHAR(30), lName VARCHAR(30), city VARCHAR(15), commission VARCHAR(2), PRIMARY KEY (agentID));
+CREATE TABLE agent (agentID VARCHAR(2), fName VARCHAR(30), lName VARCHAR(30), city VARCHAR(15), commission VARCHAR(5), PRIMARY KEY (agentID));
 CREATE TABLE customer (customerID VARCHAR(2), fName VARCHAR(30), lName VARCHAR(30), city VARCHAR(15), phoneNumber VARCHAR(20), PRIMARY KEY (customerID));
 CREATE TABLE deal (customerID VARCHAR(2) NOT NULL, agentID VARCHAR(2) NOT NULL, PRIMARY KEY (customerID, agentID), FOREIGN KEY (customerID) REFERENCES customer(customerID), FOREIGN KEY (agentID) REFERENCES agent(agentID));
 CREATE TABLE purchase (customerID VARCHAR(2) NOT NULL, productID VARCHAR(2) NOT NULL, hours INT, PRIMARY KEY (customerID, productID), FOREIGN KEY (customerID) REFERENCES customer(customerID), FOREIGN KEY (productID) REFERENCES product(productID));
