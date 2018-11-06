@@ -1,6 +1,52 @@
 Warning: Using a password on the command line interface can be insecure.
-ERROR 1064 (42000) at line 1: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATABSE tliu323assign2db' at line 1
 --------------
-CREATE DATABSE tliu323assign2db
+SHOW DATABASES
 --------------
 
+Database
+information_schema
+mysql
+performance_schema
+tliu323assign2db
+--------------
+DROP DATABASE IF EXISTS tliu323assign2db
+--------------
+
+--------------
+CREATE DATABASE tliu323assign2db
+--------------
+
+--------------
+SHOW TABLES
+--------------
+
+--------------
+CREATE TABLE product (productID VARCHAR(2), description VARCHAR(20), cost INT, quantity INT, PRIMARY KEY (productID))
+--------------
+
+--------------
+CREATE TABLE agent (agentID VARCHAR(2), fName VARCHAR(30), lName VARCHAR(30), city VARCHAR(15), commission VARCHAR(5), PRIMARY KEY (agentID))
+--------------
+
+--------------
+CREATE TABLE customer (customerID VARCHAR(2), fName VARCHAR(30), lName VARCHAR(30), city VARCHAR(15), phoneNumber VARCHAR(20), PRIMARY KEY (customerID))
+--------------
+
+--------------
+CREATE TABLE deal (customerID VARCHAR(2) NOT NULL, agentID VARCHAR(2) NOT NULL, PRIMARY KEY (customerID, agentID), FOREIGN KEY (customerID) REFERENCES customer(customerID), FOREIGN KEY (agentID) REFERENCES agent(agentID))
+--------------
+
+--------------
+CREATE TABLE purchase (customerID VARCHAR(2) NOT NULL, productID VARCHAR(2) NOT NULL, hours INT, PRIMARY KEY (customerID, productID), FOREIGN KEY (customerID) REFERENCES customer(customerID), FOREIGN KEY (productID) REFERENCES product(productID))
+--------------
+
+--------------
+SHOW TABLES
+--------------
+
+Tables_in_tliu323assign2db
+agent
+customer
+deal
+product
+purchase

@@ -39,7 +39,7 @@ INSERT INTO deal VALUES ("10", "11");
 INSERT INTO deal VALUES ("15", "11");
 INSERT INTO deal VALUES ("31", "66");
 SELECT * FROM deal;
-UPDATE customer SET fName="Wonder", lName="Woman" WHERE fName="Super", lName="Man";
+UPDATE customer SET fName='Wonder' AND lName='Woman' WHERE fName='Super' AND lName='Man';
 SELECT * FROM customer;
 UPDATE purchase, customer 
 SET purchase.quantity=5 

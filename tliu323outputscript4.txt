@@ -1,15 +1,15 @@
 Warning: Using a password on the command line interface can be insecure.
-ERROR 1064 (42000) at line 9: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IF EXISTS' at line 1
+ERROR 1054 (42S22) at line 9: Unknown column 'purchase.quantity' in 'field list'
 --------------
 SELECT * FROM customer
 --------------
 
 customerID	fName	lName	city	phoneNumber
-10	Barney	Rubble	Boston	686-8956
+10	Barney	Rubble	Bedrock	686-8956
 12	Monty	Burns	Springfield	686-8956
-13	Wonder	Woman	Krpto	686-8956
+13	Super	Man	Krpto	686-8956
 14	Peter	Griffens	Providence	686-8956
-15	Fred	Flintstone	Boston	686-8956
+15	Fred	Flintstone	Bedrock	686-8956
 21	Homer	Simpson	Springfield	686-8956
 31	Sideshow	Bob	Springfield	686-8956
 --------------
@@ -31,15 +31,16 @@ SELECT * FROM product
 productID	description	cost	quantity
 11	Bike	150	200
 12	Socks	2	100
-66	Elbow pads	14.25	120
-78	Knee Pads	12.15	70
+16	Shin guards	18	100
+66	Elbow pads	14	120
+78	Knee Pads	12	70
 88	Roller Blades	75	89
 99	Helmet	29	30
 --------------
 SELECT * FROM purchase
 --------------
 
-customerID	productID	quantity
+customerID	productID	hours
 14	66	19
 15	66	2
 15	78	2
@@ -63,6 +64,8 @@ customerID	agentID
 14	99
 21	99
 --------------
-DROP VIEW boughtproduct IF EXISTS
+CREATE VIEW boughtproduct AS SELECT fName, lName, description, purchase.quantity, cost, cost * purchase.quantity AS total
+FROM customer, purchase, product
+WHERE purchase.customerID=customer.customerID AND purchase.productID=product.productID
 --------------
 
