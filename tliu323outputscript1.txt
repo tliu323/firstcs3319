@@ -21,7 +21,7 @@ SHOW TABLES
 --------------
 
 --------------
-CREATE TABLE product (productID VARCHAR(2), description VARCHAR(20), cost INT, quantity INT, PRIMARY KEY (productID))
+CREATE TABLE product (productID VARCHAR(2), description VARCHAR(20), cost DOUBLE, quantity INT, PRIMARY KEY (productID))
 --------------
 
 --------------
@@ -37,7 +37,7 @@ CREATE TABLE deal (customerID VARCHAR(2) NOT NULL, agentID VARCHAR(2) NOT NULL, 
 --------------
 
 --------------
-CREATE TABLE purchase (customerID VARCHAR(2) NOT NULL, productID VARCHAR(2) NOT NULL, hours INT, PRIMARY KEY (customerID, productID), FOREIGN KEY (customerID) REFERENCES customer(customerID), FOREIGN KEY (productID) REFERENCES product(productID))
+CREATE TABLE purchase (customerID VARCHAR(2) NOT NULL, productID VARCHAR(2) NOT NULL, quantity INT, PRIMARY KEY (customerID, productID), FOREIGN KEY (customerID) REFERENCES customer(customerID), FOREIGN KEY (productID) REFERENCES product(productID))
 --------------
 
 --------------

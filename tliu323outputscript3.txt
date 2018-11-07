@@ -89,7 +89,7 @@ GROUP BY lName
 --------------
 
 fName	lName	SUM(purchase.quantity)
-Sideshow	Bob	9
+Sideshow	Bob	20
 Fred	Flintstone	4
 Peter	Griffens	19
 Homer	Simpson	44
@@ -135,7 +135,7 @@ WHERE productID='78'
 --------------
 
 Total amount of knee pads sold
-6
+7
 --------------
 SELECT description, COUNT(purchase.productID)
 FROM purchase, product

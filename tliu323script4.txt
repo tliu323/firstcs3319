@@ -8,7 +8,7 @@ SELECT * FROM deal;
 
 CREATE VIEW boughtproduct AS SELECT fName, lName, description, purchase.quantity, cost, cost * purchase.quantity AS total
 FROM customer, purchase, product
-WHERE purchase.customerID=customer.customerID AND purchase.productID=product.productID;
+WHERE purchase.customerID=customer.customerID AND purchase.productID=product.productID
 ORDER BY lName;
 SELECT * FROM boughtproduct;
 

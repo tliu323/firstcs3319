@@ -1,17 +1,17 @@
 Warning: Using a password on the command line interface can be insecure.
-ERROR 1054 (42S22) at line 9: Unknown column 'purchase.quantity' in 'field list'
+ERROR 1451 (23000) at line 21: Cannot delete or update a parent row: a foreign key constraint fails (`tliu323assign2db`.`deal`, CONSTRAINT `deal_ibfk_2` FOREIGN KEY (`agentID`) REFERENCES `agent` (`agentID`))
 --------------
 SELECT * FROM customer
 --------------
 
 customerID	fName	lName	city	phoneNumber
-10	Barney	Rubble	Bedrock	686-8956
-12	Monty	Burns	Springfield	686-8956
-13	Super	Man	Krpto	686-8956
-14	Peter	Griffens	Providence	686-8956
-15	Fred	Flintstone	Bedrock	686-8956
+10	Barney	Rubble	Boston	777-1234
+12	Monty	Burns	Springfield	789-0000
+13	Wonder	Woman	Krpto	888-1234
+14	Peter	Griffens	Providence	987-4567
+15	Fred	Flintstone	Boston	777-2345
 21	Homer	Simpson	Springfield	686-8956
-31	Sideshow	Bob	Springfield	686-8956
+31	Sideshow	Bob	Springfield	686-5555
 --------------
 SELECT * FROM agent
 --------------
@@ -31,26 +31,26 @@ SELECT * FROM product
 productID	description	cost	quantity
 11	Bike	150	200
 12	Socks	2	100
-16	Shin guards	18	100
-66	Elbow pads	14	120
-78	Knee Pads	12	70
+16	Shin guards	17.5	100
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
 88	Roller Blades	75	89
 99	Helmet	29	30
 --------------
 SELECT * FROM purchase
 --------------
 
-customerID	productID	hours
+customerID	productID	quantity
 14	66	19
 15	66	2
 15	78	2
 21	12	14
 21	66	10
 21	99	20
-31	12	2
-31	66	2
-31	78	4
-31	99	1
+31	12	5
+31	66	5
+31	78	5
+31	99	5
 --------------
 SELECT * FROM deal
 --------------
@@ -67,5 +67,50 @@ customerID	agentID
 CREATE VIEW boughtproduct AS SELECT fName, lName, description, purchase.quantity, cost, cost * purchase.quantity AS total
 FROM customer, purchase, product
 WHERE purchase.customerID=customer.customerID AND purchase.productID=product.productID
+ORDER BY lName
+--------------
+
+--------------
+SELECT * FROM boughtproduct
+--------------
+
+fName	lName	description	quantity	cost	total
+Sideshow	Bob	Socks	5	2	10
+Sideshow	Bob	Elbow pads	5	14.25	71.25
+Sideshow	Bob	Knee Pads	5	12.15	60.75
+Sideshow	Bob	Helmet	5	29	145
+Fred	Flintstone	Elbow pads	2	14.25	28.5
+Fred	Flintstone	Knee Pads	2	12.15	24.3
+Peter	Griffens	Elbow pads	19	14.25	270.75
+Homer	Simpson	Socks	14	2	28
+Homer	Simpson	Elbow pads	10	14.25	142.5
+Homer	Simpson	Helmet	20	29	580
+--------------
+SELECT * FROM boughtproduct
+WHERE total>100
+--------------
+
+fName	lName	description	quantity	cost	total
+Sideshow	Bob	Helmet	5	29	145
+Peter	Griffens	Elbow pads	19	14.25	270.75
+Homer	Simpson	Elbow pads	10	14.25	142.5
+Homer	Simpson	Helmet	20	29	580
+--------------
+DELETE FROM product WHERE description='Shin guards'
+--------------
+
+--------------
+SELECT * FROM product
+--------------
+
+productID	description	cost	quantity
+11	Bike	150	200
+12	Socks	2	100
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+DELETE FROM agent WHERE city='Springfield'
 --------------
 

@@ -1,5 +1,4 @@
 Warning: Using a password on the command line interface can be insecure.
-ERROR 1292 (22007) at line 42: Truncated incorrect DOUBLE value: 'Wonder'
 --------------
 LOAD DATA LOCAL INFILE 'data.txt' INTO TABLE product FIELDS TERMINATED BY ','
 --------------
@@ -57,27 +56,27 @@ INSERT INTO customer VALUES ("21", "Homer", "Simpson", "Springfield", "686-8956"
 --------------
 
 --------------
-INSERT INTO customer VALUES ("31", "Sideshow", "Bob", "Springfield", "686-8956")
+INSERT INTO customer VALUES ("31", "Sideshow", "Bob", "Springfield", "686-5555")
 --------------
 
 --------------
-INSERT INTO customer VALUES ("12", "Monty", "Burns", "Springfield", "686-8956")
+INSERT INTO customer VALUES ("12", "Monty", "Burns", "Springfield", "789-0000")
 --------------
 
 --------------
-INSERT INTO customer VALUES ("15", "Fred", "Flintstone", "Bedrock", "686-8956")
+INSERT INTO customer VALUES ("15", "Fred", "Flintstone", "Bedrock", "777-2345")
 --------------
 
 --------------
-INSERT INTO customer VALUES ("13", "Super", "Man", "Krpto", "686-8956")
+INSERT INTO customer VALUES ("13", "Super", "Man", "Krpto", "888-1234")
 --------------
 
 --------------
-INSERT INTO customer VALUES ("10", "Barney", "Rubble", "Bedrock", "686-8956")
+INSERT INTO customer VALUES ("10", "Barney", "Rubble", "Bedrock", "777-1234")
 --------------
 
 --------------
-INSERT INTO customer VALUES ("14", "Peter", "Griffens", "Providence", "686-8956")
+INSERT INTO customer VALUES ("14", "Peter", "Griffens", "Providence", "987-4567")
 --------------
 
 --------------
@@ -85,13 +84,13 @@ SELECT * FROM customer
 --------------
 
 customerID	fName	lName	city	phoneNumber
-10	Barney	Rubble	Bedrock	686-8956
-12	Monty	Burns	Springfield	686-8956
-13	Super	Man	Krpto	686-8956
-14	Peter	Griffens	Providence	686-8956
-15	Fred	Flintstone	Bedrock	686-8956
+10	Barney	Rubble	Bedrock	777-1234
+12	Monty	Burns	Springfield	789-0000
+13	Super	Man	Krpto	888-1234
+14	Peter	Griffens	Providence	987-4567
+15	Fred	Flintstone	Bedrock	777-2345
 21	Homer	Simpson	Springfield	686-8956
-31	Sideshow	Bob	Springfield	686-8956
+31	Sideshow	Bob	Springfield	686-5555
 --------------
 INSERT INTO purchase VALUES ("21", "99", 20)
 --------------
@@ -136,7 +135,7 @@ INSERT INTO purchase VALUES ("14", "66", 19)
 SELECT * FROM purchase
 --------------
 
-customerID	productID	hours
+customerID	productID	quantity
 14	66	19
 15	66	2
 15	78	2
@@ -188,6 +187,57 @@ customerID	agentID
 14	99
 21	99
 --------------
-UPDATE customer SET fName='Wonder' AND lName='Woman' WHERE fName='Super' AND lName='Man'
+UPDATE customer SET fName='Wonder', lName='Woman' WHERE fName='Super' AND lName='Man'
 --------------
 
+--------------
+SELECT * FROM customer
+--------------
+
+customerID	fName	lName	city	phoneNumber
+10	Barney	Rubble	Bedrock	777-1234
+12	Monty	Burns	Springfield	789-0000
+13	Wonder	Woman	Krpto	888-1234
+14	Peter	Griffens	Providence	987-4567
+15	Fred	Flintstone	Bedrock	777-2345
+21	Homer	Simpson	Springfield	686-8956
+31	Sideshow	Bob	Springfield	686-5555
+--------------
+UPDATE purchase, customer 
+SET purchase.quantity=5 
+WHERE customer.fName='Sideshow' AND customer.customerID=purchase.customerID
+--------------
+
+--------------
+SELECT * FROM purchase
+--------------
+
+customerID	productID	quantity
+14	66	19
+15	66	2
+15	78	2
+21	12	14
+21	66	10
+21	99	20
+31	12	5
+31	66	5
+31	78	5
+31	99	5
+--------------
+UPDATE customer, deal, agent 
+SET customer.city='Boston' 
+WHERE agent.fName='Regis' AND agent.agentID=deal.agentID AND customer.customerID=deal.customerID
+--------------
+
+--------------
+SELECT * FROM customer
+--------------
+
+customerID	fName	lName	city	phoneNumber
+10	Barney	Rubble	Boston	777-1234
+12	Monty	Burns	Springfield	789-0000
+13	Wonder	Woman	Krpto	888-1234
+14	Peter	Griffens	Providence	987-4567
+15	Fred	Flintstone	Boston	777-2345
+21	Homer	Simpson	Springfield	686-8956
+31	Sideshow	Bob	Springfield	686-5555
